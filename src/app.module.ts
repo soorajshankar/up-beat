@@ -15,7 +15,7 @@ import { join } from 'path';
     MongooseModule.forRoot('mongodb://localhost/nest'),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
-      exclude: ['/api*'],
+      renderPath: '/',
     }),
   ],
   controllers: [AppController],
