@@ -16,9 +16,7 @@ import configuration from 'config/configuration';
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
-    MongooseModule.forRoot(
-      `mongodb://${process.env.DATABASE_HOST}/${process.env.DATABASE_DBNAME}`,
-    ),
+    MongooseModule.forRoot(`mongodb://${process.env.DATABASE_HOST}/nest`),
     BullModule.registerQueue({
       name: 'audio',
       redis: {
