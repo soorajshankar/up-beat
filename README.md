@@ -8,6 +8,14 @@
 
 [Nest](https://github.com/nestjs/nest) server monitoring system
 
+## Environment
+
+Example .env file is given for reference as (example.env). For local development use the following command after cloning the project.
+
+```shell
+cp example.env .env
+```
+
 ## Installation
 
 ```bash
