@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { BullModule } from '@nestjs/bull';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
@@ -13,6 +14,13 @@ import { join } from 'path';
       autoSchemaFile: 'schema.gql',
     }),
     MongooseModule.forRoot('mongodb://localhost/nest'),
+    BullModule.registerQueue({
+      name: 'audio',
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
       renderPath: '/',
