@@ -9,10 +9,11 @@ import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { join } from 'path';
 import configuration from 'config/configuration';
+import { ScheduleModule } from '@nestjs/schedule';
+import { UrlsModule } from './urls/urls.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration] }),
-    CatsModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
@@ -28,6 +29,10 @@ import configuration from 'config/configuration';
       rootPath: join(__dirname, '..', 'client'),
       renderPath: '/',
     }),
+    ScheduleModule.forRoot(),
+
+    CatsModule,
+    UrlsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

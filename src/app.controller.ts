@@ -9,4 +9,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+  @Get('/cron')
+  startCron(): string {
+    return this.appService.startCron();
+  }
 }
