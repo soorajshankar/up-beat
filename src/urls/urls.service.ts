@@ -8,14 +8,18 @@ import { UrlInput } from './inputs/url.input';
 
 @Injectable()
 export class UrlsService {
-  constructor(@InjectModel('Url') private readonly urlModel: Model<Url>) {}
+    constructor(@InjectModel('Url') private readonly urlModel: Model<Url>) {}
 
-  async create(createUrlDto: UrlInput): Promise<Url> {
-    const createdUrl = new this.urlModel(createUrlDto);
-    return createdUrl.save();
-  }
+    async create(createUrlDto: UrlInput): Promise<Url> {
+        const createdUrl = new this.urlModel(createUrlDto);
+        return createdUrl.save();
+    }
+    async createDirect(object: object): Promise<Url> {
+        const createdUrl = new this.urlModel(object);
+        return createdUrl.save();
+    }
 
-  async findAll(): Promise<Url[]> {
-    return this.urlModel.find().exec();
-  }
+    async findAll(): Promise<Url[]> {
+        return this.urlModel.find().exec();
+    }
 }

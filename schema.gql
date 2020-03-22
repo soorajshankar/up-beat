@@ -35,6 +35,7 @@ scalar Timestamp
 input UrlInput {
   url: String!
   method: String!
+  active: Boolean!
 }
 
 type UrlType {
