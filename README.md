@@ -16,6 +16,11 @@ Example .env file is given for reference as (example.env). For local development
 cp example.env .env
 ```
 
+## Branching model
+
+We use [git-flow](https://nvie.com/posts/a-successful-git-branching-model/) branching model. The base branch is `dev`.
+If you are looking for a stable version, please use the `master` or tags labelled as `v1.x.x`.
+
 ## Installation
 
 ```bash
