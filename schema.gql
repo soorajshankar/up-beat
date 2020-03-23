@@ -33,13 +33,15 @@ type CatType {
 
 type Mutation {
   createCat(input: CatInput!): CatType!
-  createUrl(input: AnalyticsInput!): AnalyticsType!
+  createUrl(input: UrlInput!): UrlType!
+  createAnalytics(input: AnalyticsInput!): AnalyticsType!
 }
 
 type Query {
   hello: String!
   cats: [CatType!]!
-  urls: [AnalyticsType!]!
+  urls: [UrlType!]!
+  analytics: [AnalyticsType!]!
 }
 
 """
