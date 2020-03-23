@@ -3,10 +3,14 @@ import { Cron } from '@nestjs/schedule';
 import { UrlsService } from 'src/urls/urls.service';
 import axios from 'axios';
 import { UrlInput } from 'src/urls/inputs/url.input';
+import { AnalyticsService } from 'src/analytics/analytics.service';
 
 @Injectable()
 export class CronService {
-    constructor(private readonly urlsService: UrlsService) {}
+    constructor(
+        private readonly urlsService: UrlsService,
+        private readonly analyticsService: AnalyticsService,
+    ) {}
     private readonly logger = new Logger(CronService.name);
     private urls = []; // in memory list of active urls
 
@@ -19,8 +23,13 @@ export class CronService {
     @Cron('* * * * * *') // testing with every second
     async handleCron() {
         this.urls.forEach(async i => {
-            this.logger.debug('URL>', i.url);
             const rr = await axios.get(i.url);
+            this.analyticsService.createDirect({
+                url: i.id,
+                method: i.method,
+                status: rr.status + '',
+                active: true,
+            });
             this.logger.debug('URL?>', rr.status + '');
         });
     }

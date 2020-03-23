@@ -7,5 +7,6 @@ import { AnalyticsResolver } from './analytics.resolver';
 @Module({
     imports: [MongooseModule.forFeature([{ name: 'Analytics', schema: AnalyticsSchema }])],
     providers: [AnalyticsService, AnalyticsResolver],
+    exports: [AnalyticsResolver, AnalyticsService],
 })
 export class AnalyticsModule {}
