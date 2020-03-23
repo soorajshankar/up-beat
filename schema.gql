@@ -3,6 +3,21 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input AnalyticsInput {
+  url: String!
+  method: String!
+  status: String!
+  active: Boolean!
+}
+
+type AnalyticsType {
+  id: ID!
+  url: String!
+  method: String!
+  status: String!
+  createdAt: Timestamp!
+}
+
 input CatInput {
   name: String!
   age: Int!
@@ -18,13 +33,13 @@ type CatType {
 
 type Mutation {
   createCat(input: CatInput!): CatType!
-  createUrl(input: UrlInput!): UrlType!
+  createUrl(input: AnalyticsInput!): AnalyticsType!
 }
 
 type Query {
   hello: String!
   cats: [CatType!]!
-  urls: [UrlType!]!
+  urls: [AnalyticsType!]!
 }
 
 """

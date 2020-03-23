@@ -12,6 +12,7 @@ import configuration from 'config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UrlsModule } from './urls/urls.module';
 import { CronModule } from './cron/cron.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration] }),
@@ -35,6 +36,7 @@ import { CronModule } from './cron/cron.module';
     CatsModule,
     UrlsModule,
     CronModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
