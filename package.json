@@ -31,7 +31,7 @@
     "@nestjs/serve-static": "^2.1.0",
     "apollo-server-express": "^2.4.8",
     "bull": "^3.13.0",
-    "graphql": "^14.2.1",
+    "graphql": "^14.6.0",
     "graphql-tools": "^4.0.4",
     "lerna": "^3.20.2",
     "mongoose": "^5.5.1",
