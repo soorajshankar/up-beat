@@ -1,7 +1,19 @@
 {
-  "name": "up-beat",
-  "private": true,
-  "devDependencies": {
-    "lerna": "^3.20.2"
-  }
+    "name": "up-beat",
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "packages/client",
+            "packages/server"
+        ]
+    },
+    "scripts": {
+        "dev": "lerna run dev --scope @up-beat/client --stream",
+        "start:client": "lerna run start --scope @up-beat/client --stream",
+        "build:client": "lerna run start --scope @up-beat/client --stream",
+        "start:server": "lerna run start:dev --scope @up-beat/server --stream"
+    },
+    "devDependencies": {
+        "lerna": "^3.20.2"
+    }
 }
