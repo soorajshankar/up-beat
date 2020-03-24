@@ -33,6 +33,7 @@
     "bull": "^3.13.0",
     "graphql": "^14.2.1",
     "graphql-tools": "^4.0.4",
+    "lerna": "^3.20.2",
     "mongoose": "^5.5.1",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",

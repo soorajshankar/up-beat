@@ -28,7 +28,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
       },
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
+      rootPath: join(__dirname, '..', 'public'),
       renderPath: '/',
     }),
     ScheduleModule.forRoot(),
