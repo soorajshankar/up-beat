@@ -20,7 +20,7 @@ export class CronService {
         this.urls = await this.urlsService.findAll();
     }
 
-    @Cron('* * * * * *') // testing with every second
+    @Cron('10 * * * * *') // testing with every second
     async handleCron() {
         this.urls.forEach(async i => {
             const rr = await axios.get(i.url);
