@@ -3,6 +3,8 @@ const def = {
     fg_inactive: '#D1DBE2',
     bg: '#F2F2F2',
     bg_card: '#fff',
+    bg_hover: '#EFF2F7',
+    bg_select: '#d1e6fb',
 };
 const Themes: IThemes = {
     default: def,
@@ -11,6 +13,8 @@ const Themes: IThemes = {
         fg_inactive: '#D1DBE2',
         bg: 'black',
         bg_card: '#fff',
+        bg_hover: '#EFF2F7',
+        bg_select: '#d1e6fb',
     },
 };
 

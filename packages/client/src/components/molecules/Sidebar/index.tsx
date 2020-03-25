@@ -7,7 +7,9 @@ interface ISidebarProps {
     open?: boolean;
 }
 const SidebarDiv = styled.div`
+    z-index: 10;
     width: 80px;
+    min-width: 80px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -15,6 +17,7 @@ const SidebarDiv = styled.div`
     margin-left: ${(props: ISidebarProps) => (props.open ? '0px' : '-80px')};
     transition: margin 400ms;
     background-color: ${(props: IThemed) => props.theme.bg_card};
+    box-shadow: 1px 1px 3px 1px #e0e0e0;
 `;
 const Sidehead = styled.div``;
 const SideCenter = styled.div`
@@ -26,6 +29,7 @@ const SideCenter = styled.div`
     width: 100%;
 `;
 const SidebarHandle = styled.div`
+    z-index: 25;
     position: absolute;
     cursor: pointer;
     padding: 15px 28px;

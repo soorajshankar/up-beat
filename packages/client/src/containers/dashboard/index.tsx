@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Sidebar } from '../../components/molecules/Sidebar';
 import { Header } from '../../components/molecules/Header';
 import { IThemed } from '../../contexts/Themes';
+import { H3 } from '../../components/atoms/Heading';
+import { SearchInput } from '../../components/atoms/Inputs';
+import { List } from '../../components/molecules/List';
 const DashboardDiv = styled.div`
     display: flex;
     height: 100%;
@@ -14,17 +17,30 @@ const RightPane = styled.div<IThemed>`
     display: flex;
     flex-direction: column;
 `;
-const Content = styled.div<IThemed>`
+const SecondPane = styled.div<IThemed>`
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    padding: 25px 80px;
+    width: 375px;
+    background-color: ${(props: IThemed) => props.theme.bg_card};
+    box-shadow: 1px 1px 3px 1px #e0e0e0;
+`;
+const PaneHeder = styled.div`
+    padding: 30px;
 `;
 export const Dashboard = () => {
     return (
         <DashboardDiv>
             <Sidebar />
             <RightPane>
-                <Header />
-                <Content>Test</Content>
+                <SecondPane>
+                    <PaneHeder>
+                        <H3>Domains</H3>
+                        <SearchInput />
+                    </PaneHeder>
+                    <List />
+                </SecondPane>
             </RightPane>
         </DashboardDiv>
     );
