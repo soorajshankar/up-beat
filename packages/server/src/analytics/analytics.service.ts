@@ -2,6 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Analytics } from './interfaces/analytics.interface';
+import * as moment from 'moment';
 
 import { AnalyticsInput } from './inputs/analytics.input';
 
@@ -20,5 +21,8 @@ export class AnalyticsService {
 
     async findAll(): Promise<Analytics[]> {
         return this.analyticsModel.find().exec();
+    }
+    async findWithQry(qry: object): Promise<Analytics[]> {
+        return this.analyticsModel.find({ ...qry });
     }
 }

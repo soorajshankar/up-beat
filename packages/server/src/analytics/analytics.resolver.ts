@@ -11,6 +11,10 @@ export class AnalyticsResolver {
     async analytics() {
         return this.analyticsService.findAll();
     }
+    @Query(() => [AnalyticsType])
+    async getAnalytics(@Args('input') url: string) {
+        return this.analyticsService.findWithQry({ url });
+    }
 
     @Mutation(() => AnalyticsType)
     async createAnalytics(@Args('input') input: AnalyticsInput) {

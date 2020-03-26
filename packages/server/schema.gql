@@ -42,6 +42,7 @@ type Query {
   cats: [CatType!]!
   urls: [UrlType!]!
   analytics: [AnalyticsType!]!
+  getAnalytics(input: String!): [AnalyticsType!]!
 }
 
 """

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SFC } from 'react';
 import styled from 'styled-components';
 import { IThemed } from '../../../contexts/Themes';
 
@@ -21,17 +21,35 @@ const UL = styled.ul`
     overflow: auto;
 `;
 
-const testData = Array.from({ length: 10 }).map((_, i) => 'TEST :' + i);
+export interface IListProps<T> {
+    data?: T[];
+    onClick?: (v: T) => void;
+}
 
-export const List = () => {
+const List: ListI = ({ data = [], onClick }) => {
     const [active, setActive] = React.useState(2);
+    const didMountRef = React.useRef(false);
+    React.useEffect(() => {
+        if (!didMountRef.current) {
+            didMountRef.current = true;
+            //did mount here
+            return;
+        }
+        onClick && data && onClick(data[active]);
+    }, [active, onClick]);
     return (
         <UL>
-            {testData.map((i, ix) => (
-                <LI active={ix == active} onClick={() => setActive(ix)}>
-                    {i}
-                </LI>
-            ))}
+            {data &&
+                data instanceof Array &&
+                data.map((i, ix) => (
+                    <LI active={ix == active} onClick={() => setActive(ix)} tabIndex={ix}>
+                        <a>{i.url || ''}</a>
+                    </LI>
+                ))}
         </UL>
     );
 };
+
+type ListI<T = any> = React.FC<IListProps<T>>;
+
+export default React.memo(List);
