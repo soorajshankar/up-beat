@@ -40,6 +40,7 @@ export class CronService {
 
             this.analyticsService.createDirect({
                 url: i.id,
+                rDuration: rr.headers['request-duration'],
                 method: i.method,
                 status: rr.status + '',
                 active: true,

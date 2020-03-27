@@ -5,6 +5,7 @@
 
 input AnalyticsInput {
   url: String!
+  rDuration: Float!
   method: String!
   status: String!
   active: Boolean!
