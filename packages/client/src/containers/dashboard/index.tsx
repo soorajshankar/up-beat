@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Sidebar } from '../../components/molecules/Sidebar';
 import { IThemed } from '../../contexts/Themes';
 import DomainsPane from '../DomainsPane';
+import DashPane from '../DashPane';
 
 const DashboardDiv = styled.div`
     display: flex;
@@ -13,7 +14,6 @@ const RightPane = styled.div<IThemed>`
     height: 100%;
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
 `;
 export const Dashboard = () => {
     return (
@@ -21,6 +21,7 @@ export const Dashboard = () => {
             <Sidebar />
             <RightPane>
                 <DomainsPane />
+                <DashPane />
             </RightPane>
         </DashboardDiv>
     );

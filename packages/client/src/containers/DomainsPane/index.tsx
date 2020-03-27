@@ -12,7 +12,7 @@ const SecondPane = styled.div<IThemed>`
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 375px;
+    min-width: 375px;
     background-color: ${(props: IThemed) => props.theme.bg_card};
     box-shadow: 1px 1px 3px 1px #e0e0e0;
 `;
