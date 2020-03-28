@@ -8,4 +8,4 @@ RUN npm install
 COPY . .
 #Expose port and start application
 EXPOSE 8080
-CMD [ "npm", "start" ]
+CMD [ "npm", "start:prodserver" ]
