@@ -32,6 +32,11 @@ type CatType {
   breed: String!
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type Mutation {
   createCat(input: CatInput!): CatType!
   createUrl(input: UrlInput!): UrlType!
@@ -43,7 +48,8 @@ type Query {
   cats: [CatType!]!
   urls: [UrlType!]!
   analytics: [AnalyticsType!]!
-  getAnalytics(input: String!): [AnalyticsType!]!
+  getAllTimeAnalytics(input: String!): [AnalyticsType!]!
+  getAnalytics(to: DateTime, from: DateTime, input: String!): [AnalyticsType!]!
 }
 
 """
