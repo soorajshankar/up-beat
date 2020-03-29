@@ -7,6 +7,9 @@ import { Row, Column } from '../../components/molecules/Grid';
 import { H3, H1, H2 } from '../../components/atoms/Heading';
 import Select from '../../components/atoms/Select';
 
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import moment from 'moment';
 const OPTNS = OPTIONS.map(i => i.name);
 
 const PlainCard = styled.div<IThemed>`
@@ -15,7 +18,27 @@ const PlainCard = styled.div<IThemed>`
     margin: 20px 10px;
     border-radius: 5px;
 `;
-const OverView = () => {
+const GET_ANALYTICS = gql`
+    query getAnalytics($input: String!) {
+        getAnalytics(input: $input) {
+            url
+            status
+            createdAt
+            method
+        }
+    }
+`;
+const OverView = ({}) => {
+    const [from, setFrom] = React.useState(
+        moment()
+            .startOf('week')
+            .toString(),
+    );
+    console.log('TEST');
+    const { loading, error, data } = useQuery(GET_ANALYTICS, {
+        variables: { input: '5e7776330848c84e31fd0d12' },
+    });
+
     console.log('>>');
     return (
         <>
