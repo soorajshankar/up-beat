@@ -1,26 +1,18 @@
 import React from 'react';
 import BarChart from '../../components/molecules/BarChart';
-import styled from 'styled-components';
-
-const Grid = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    flex-direction: 'row';
-    height: 100%;
-    overflow: auto;
-`;
+import Container from '../../components/molecules/Container';
+import OverView from './Overview';
 
 const DashPane = () => (
-    <Grid>
+    <Container>
+        <OverView />
         <BarChart />
         <BarChart />
         <BarChart />
         <BarChart />
         <BarChart />
         <BarChart />
-        <BarChart />
-    </Grid>
+    </Container>
 );
 
 export default DashPane;

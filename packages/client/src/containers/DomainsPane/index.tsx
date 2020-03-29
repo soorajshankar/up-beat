@@ -12,7 +12,7 @@ const SecondPane = styled.div<IThemed>`
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-width: 375px;
+    min-width: 250px;
     background-color: ${(props: IThemed) => props.theme.bg_card};
     box-shadow: 1px 1px 3px 1px #e0e0e0;
 `;
@@ -20,10 +20,7 @@ const PaneHeder = styled.div`
     padding: 30px;
 `;
 const DomainsPane = () => {
-    const { loading, error, data } = useQuery(GET_GREETING, {
-        variables: { language: 'english' },
-    });
-    if (loading) return <p>Loading ...</p>;
+    const { loading, error, data } = useQuery(GET_DOMAINS, {});
     console.log(loading, error, data);
 
     return (
@@ -32,12 +29,18 @@ const DomainsPane = () => {
                 <H3>Domains</H3>
                 <SearchInput />
             </PaneHeder>
-            <List data={data.urls as Iurl[]} onClick={console.warn} />
+            {loading ? (
+                <p>Loading</p>
+            ) : error ? (
+                <p>Failed to load the data...</p>
+            ) : (
+                <List data={data.urls as Iurl[]} onClick={console.warn} />
+            )}
         </SecondPane>
     );
 };
 
-const GET_GREETING = gql`
+const GET_DOMAINS = gql`
     query {
         urls {
             url
