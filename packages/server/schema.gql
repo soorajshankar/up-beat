@@ -14,6 +14,7 @@ input AnalyticsInput {
 type AnalyticsType {
   id: ID!
   url: String!
+  rDuration: Float
   method: String!
   status: String!
   createdAt: Timestamp!

@@ -11,12 +11,6 @@ for (var i = 0; i < 120; i++) {
 
 console.log(dates);
 const TEST = {
-    series: [
-        {
-            name: 'XYZ MOTORS',
-            data: dates,
-        },
-    ],
     options: {
         chart: {
             type: 'area',
@@ -38,7 +32,7 @@ const TEST = {
             size: 0,
         },
         title: {
-            text: 'Stock Price Movement',
+            text: 'Response Time',
             align: 'left',
         },
         fill: {
@@ -47,7 +41,7 @@ const TEST = {
                 shadeIntensity: 1,
                 inverseColors: false,
                 opacityFrom: 0.5,
-                opacityTo: 1,
+                opacityTo: 0,
                 stops: [0, 90, 100],
             },
         },
@@ -64,21 +58,43 @@ const TEST = {
         },
     },
 };
-const BarChart = () => (
-    <div className="app">
-        <div className="row">
-            <div className="mixed-chart">
-                <ReactApexChart
-                    options={TEST.options}
-                    series={TEST.series}
-                    type="bar"
-                    width="500"
-                />
+const parseData = (data: any[]) => {
+    console.log(data);
+    const dates: any[] = [];
+    data &&
+    data instanceof Array &&
+        data.forEach(i => {
+            dates.push([i.createdAt, i.rDuration]);
+        });
+    return [
+        {
+            name: 'google.com',
+            data: dates,
+        },
+    ];
+};
+const BarChart: React.FC<IBarChartProps> = props => {
+    const series = React.useMemo(() => parseData(props.data as any[]), [props.data]);
+    return (
+        <div className="app">
+            <div className="row">
+                <div className="mixed-chart">
+                    <ReactApexChart
+                        options={TEST.options}
+                        series={series}
+                        type="area"
+                        width="500"
+                    />
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 export default BarChart;
+interface IBarChartProps {
+    data?: any[];
+}
+
 function dataSeries() {
     return [
         {

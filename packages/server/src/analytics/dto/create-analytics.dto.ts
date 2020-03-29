@@ -6,6 +6,8 @@ export class AnalyticsType {
     id: string;
     @Field()
     readonly url: string;
+    @Field({ nullable: true })
+    readonly rDuration?: number;
     @Field()
     readonly method: string;
     @Field()

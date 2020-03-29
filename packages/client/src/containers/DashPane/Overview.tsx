@@ -7,9 +7,6 @@ import { Row, Column } from '../../components/molecules/Grid';
 import { H3, H1, H2 } from '../../components/atoms/Heading';
 import Select from '../../components/atoms/Select';
 
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import moment from 'moment';
 const OPTNS = OPTIONS.map(i => i.name);
 
 const PlainCard = styled.div<IThemed>`
@@ -18,26 +15,14 @@ const PlainCard = styled.div<IThemed>`
     margin: 20px 10px;
     border-radius: 5px;
 `;
-const GET_ANALYTICS = gql`
-    query getAnalytics($input: String!) {
-        getAnalytics(input: $input) {
-            url
-            status
-            createdAt
-            method
-        }
-    }
-`;
+
 const OverView = ({}) => {
-    const [from, setFrom] = React.useState(
-        moment()
-            .startOf('week')
-            .toString(),
-    );
-    console.log('TEST');
-    const { loading, error, data } = useQuery(GET_ANALYTICS, {
-        variables: { input: '5e7776330848c84e31fd0d12' },
-    });
+    const didMountRef = React.useRef(false);
+    React.useEffect(() => {
+        if (!didMountRef.current) {
+            didMountRef.current = true;
+        }
+    }, []);
 
     console.log('>>');
     return (
@@ -70,15 +55,46 @@ const OverView = ({}) => {
 };
 const AnalyticsCard = ({ title = '', value = '', percent = '', type = 'healthy' }) => {
     return (
-        <Column style={{ padding: 10, width: '100%' }}>
-            <H3 type="secondary" style={{ lineHeight: '25px', margin: '10px 0' }}>
-                {title}
-            </H3>
-            <H1 style={{ margin: '10px 0' }}>{value}</H1>
-            <H2 style={{ color: type || 'green', margin: '10px 0' }}>{percent}</H2>
+        <Column
+            style={{
+                padding: '15px 28px',
+            }}
+        >
+            <Title>{title}</Title>
+            <Value>{value}</Value>
+            <Percent type="healthy">{percent}</Percent>
         </Column>
     );
 };
+const Title = styled.span`
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 33px;
+`;
+const Value = styled.span`
+    margin: 10px 0px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 40px;
+`;
+interface IPercent {
+    type?: string;
+}
+const Percent = styled.span<IPercent>`
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 33px;
+    letter-spacing: 1px;
+    color: ${props => {
+        if (props.type === 'healthy') return '#219653';
+        if (props.type === 'unhealthy') return '#EB5757';
+        if (props.type === 'warn') return 'yellow';
+        return 'grey';
+    }};
+`;
 
 interface ISubHead {
     title?: string;
