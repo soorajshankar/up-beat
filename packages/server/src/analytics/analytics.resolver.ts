@@ -4,6 +4,7 @@ import { AnalyticsService } from './analytics.service';
 import { AnalyticsType } from './dto/create-analytics.dto';
 import { AnalyticsInput } from './inputs/analytics.input';
 import moment = require('moment');
+import { TestDTO } from './dto/test';
 
 @Resolver('Urls')
 export class AnalyticsResolver {
@@ -12,6 +13,12 @@ export class AnalyticsResolver {
     async analytics() {
         return this.analyticsService.findAll();
     }
+    @Query(() => TestDTO)
+    async test() {
+        const res = await this.analyticsService.integrate();
+        return res;
+    }
+
     @Query(() => [AnalyticsType])
     async getAllTimeAnalytics(@Args('input') url: string) {
         return this.analyticsService.findWithQry({ url });

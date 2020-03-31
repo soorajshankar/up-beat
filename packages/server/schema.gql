@@ -49,8 +49,14 @@ type Query {
   cats: [CatType!]!
   urls: [UrlType!]!
   analytics: [AnalyticsType!]!
+  test: TestDTO!
   getAllTimeAnalytics(input: String!): [AnalyticsType!]!
   getAnalytics(to: DateTime, from: DateTime, input: String!): [AnalyticsType!]!
+}
+
+type TestDTO {
+  test: String
+  analytics: [AnalyticsType!]
 }
 
 """
