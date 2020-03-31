@@ -4,6 +4,7 @@ import { Sidebar } from '../../components/molecules/Sidebar';
 import { IThemed } from '../../contexts/Themes';
 import DomainsPane from '../DomainsPane';
 import DashPane from '../DashPane';
+import { IUrl } from '../../typings';
 
 const DashboardDiv = styled.div`
     display: flex;
@@ -16,12 +17,14 @@ const RightPane = styled.div<IThemed>`
     display: flex;
 `;
 export const Dashboard = () => {
+    const [url, setUrl] = React.useState({} as IUrl);
+
     return (
         <DashboardDiv>
             <Sidebar />
             <RightPane>
-                <DomainsPane />
-                <DashPane />
+                <DomainsPane {...{ setUrl }} />
+                <DashPane {...{ url }} />
             </RightPane>
         </DashboardDiv>
     );

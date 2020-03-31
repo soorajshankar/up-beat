@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IThemed } from '../../../contexts/Themes';
 
@@ -7,7 +7,7 @@ interface ILi {
 }
 
 const LI = styled.li<IThemed & ILi>`
-    line-height: 60px;
+    line-height: 30px;
     padding: 10px;
     background-color: ${props => props.active && props.theme.bg_select};
     cursor: pointer;
@@ -27,9 +27,9 @@ export interface IListProps<T> {
 }
 
 const List: ListI = ({ data = [], onClick }) => {
-    const [active, setActive] = React.useState(2);
-    const didMountRef = React.useRef(false);
-    React.useEffect(() => {
+    const [active, setActive] = useState(0);
+    const didMountRef = useRef(false);
+    useEffect(() => {
         if (!didMountRef.current) {
             didMountRef.current = true;
             //did mount here
@@ -37,6 +37,9 @@ const List: ListI = ({ data = [], onClick }) => {
         }
         onClick && data && onClick(data[active]);
     }, [active, onClick]);
+    useEffect(() => {
+        onClick && data && onClick(data[0]);
+    }, [data]);
     return (
         <UL>
             {data &&

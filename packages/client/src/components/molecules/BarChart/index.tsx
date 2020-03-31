@@ -47,7 +47,7 @@ const TEST = {
         },
         yaxis: {
             title: {
-                text: 'Price',
+                text: 'Response Time (ms)',
             },
         },
         xaxis: {
@@ -62,7 +62,7 @@ const parseData = (data: any[]) => {
     console.log(data);
     const dates: any[] = [];
     data &&
-    data instanceof Array &&
+        data instanceof Array &&
         data.forEach(i => {
             dates.push([i.createdAt, i.rDuration]);
         });
@@ -76,18 +76,13 @@ const parseData = (data: any[]) => {
 const BarChart: React.FC<IBarChartProps> = props => {
     const series = React.useMemo(() => parseData(props.data as any[]), [props.data]);
     return (
-        <div className="app">
-            <div className="row">
-                <div className="mixed-chart">
-                    <ReactApexChart
-                        options={TEST.options}
-                        series={series}
-                        type="area"
-                        width="500"
-                    />
-                </div>
-            </div>
-        </div>
+        <ReactApexChart
+            options={TEST.options}
+            series={series}
+            type="area"
+            width="100%"
+            height="300"
+        />
     );
 };
 export default BarChart;

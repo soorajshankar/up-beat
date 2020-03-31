@@ -1,20 +1,13 @@
 import React from 'react';
 import { OPTIONS } from '../../static/constants';
 import styled from 'styled-components';
-import { IThemed } from '../../contexts/Themes';
 
 import { Row, Column } from '../../components/molecules/Grid';
-import { H3, H1, H2 } from '../../components/atoms/Heading';
+import { H3 } from '../../components/atoms/Heading';
 import Select from '../../components/atoms/Select';
+import { PlainCard } from '../../components/atoms/Card';
 
 const OPTNS = OPTIONS.map(i => i.name);
-
-const PlainCard = styled.div<IThemed>`
-    background-color: ${(props: IThemed) => props.theme.bg_card};
-    box-shadow: 1px 1px 3px 1px #e0e0e0;
-    margin: 20px 10px;
-    border-radius: 5px;
-`;
 
 const OverView = ({}) => {
     const didMountRef = React.useRef(false);

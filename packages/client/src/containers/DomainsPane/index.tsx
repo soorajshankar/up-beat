@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { IThemed } from '../../contexts/Themes';
 import { SearchInput } from '../../components/atoms/Inputs';
+import { IUrl } from '../../typings';
 
 const SecondPane = styled.div<IThemed>`
     max-height: 100vh;
@@ -19,9 +20,9 @@ const SecondPane = styled.div<IThemed>`
 const PaneHeder = styled.div`
     padding: 30px;
 `;
-const DomainsPane = () => {
+const DomainsPane = (props: IDomainsProp) => {
     const { loading, error, data } = useQuery(GET_DOMAINS, {});
-    console.log(loading, error, data);
+    console.log({ loading, error, data });
 
     return (
         <SecondPane>
@@ -34,7 +35,7 @@ const DomainsPane = () => {
             ) : error ? (
                 <p>Failed to load the data...</p>
             ) : (
-                <List data={data.urls as Iurl[]} onClick={console.warn} />
+                <List data={data.urls as IUrl[]} onClick={props.setUrl} />
             )}
         </SecondPane>
     );
@@ -44,13 +45,12 @@ const GET_DOMAINS = gql`
     query {
         urls {
             url
+            id
         }
     }
 `;
-export interface Iurl {
-    readonly url: string;
-    readonly method: string;
-    readonly createdAt?: Date;
-    readonly active?: boolean;
+
+export interface IDomainsProp {
+    setUrl: (p: IUrl) => void;
 }
 export default DomainsPane;
