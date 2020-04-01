@@ -22,7 +22,6 @@ const PaneHeder = styled.div`
 `;
 const DomainsPane = (props: IDomainsProp) => {
     const { loading, error, data } = useQuery(GET_DOMAINS, {});
-    console.log({ loading, error, data });
 
     return (
         <SecondPane>

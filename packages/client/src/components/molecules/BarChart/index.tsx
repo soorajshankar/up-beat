@@ -9,7 +9,6 @@ for (var i = 0; i < 120; i++) {
     dates.push(innerArr);
 }
 
-console.log(dates);
 const TEST = {
     options: {
         chart: {
@@ -59,7 +58,6 @@ const TEST = {
     },
 };
 const parseData = (data: any[]) => {
-    console.log(data);
     const dates: any[] = [];
     data &&
         data instanceof Array &&

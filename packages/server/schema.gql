@@ -44,12 +44,19 @@ type Mutation {
   createAnalytics(input: AnalyticsInput!): AnalyticsType!
 }
 
+type OverviewDTO {
+  type: String
+  value: Float
+  prev: Float
+}
+
 type Query {
   hello: String!
   cats: [CatType!]!
   urls: [UrlType!]!
   analytics: [AnalyticsType!]!
   test: TestDTO!
+  getOverview(type: String!, url: String!): [OverviewDTO!]!
   getAllTimeAnalytics(input: String!): [AnalyticsType!]!
   getAnalytics(to: DateTime, from: DateTime, input: String!): [AnalyticsType!]!
 }

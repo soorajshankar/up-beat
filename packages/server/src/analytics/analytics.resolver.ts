@@ -5,6 +5,7 @@ import { AnalyticsType } from './dto/create-analytics.dto';
 import { AnalyticsInput } from './inputs/analytics.input';
 import moment = require('moment');
 import { TestDTO } from './dto/test';
+import { OverviewDTO } from './dto/overview.dto';
 
 @Resolver('Urls')
 export class AnalyticsResolver {
@@ -16,6 +17,11 @@ export class AnalyticsResolver {
     @Query(() => TestDTO)
     async test() {
         const res = await this.analyticsService.integrate();
+        return res;
+    }
+    @Query(() => [OverviewDTO])
+    async getOverview(@Args('url') url: string, @Args('type') type: string) {
+        const res = await this.analyticsService.getOverView(url,type);
         return res;
     }
 

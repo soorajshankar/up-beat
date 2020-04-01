@@ -6,6 +6,8 @@ import * as moment from 'moment';
 
 import { AnalyticsInput } from './inputs/analytics.input';
 import { Test } from './interfaces/test.interface';
+import { IOverview } from './interfaces/overview.interface';
+import { genTimedQuery, getDateRange, getOverview } from 'src/utils/utils';
 
 @Injectable()
 export class AnalyticsService {
@@ -27,6 +29,23 @@ export class AnalyticsService {
         return new Promise(async (resolve, rej) => {
             const res: Test = { url: 'Test' };
             res.analytics = (await this.findAll()) as Analytics[];
+            resolve(res);
+        });
+    }
+    async getOverView(url: string, type: string): Promise<IOverview[]> {
+        const { to, from, compareFrom, compareTo } = getDateRange(type);
+
+        return new Promise(async (resolve, rej) => {
+            const current = (await this.findWithQry({
+                url,
+                ...(from && to && genTimedQuery(from, to)),
+            })) as Analytics[];
+            const compare = (await this.findWithQry({
+                url,
+                ...(compareFrom && compareTo && genTimedQuery(compareFrom, compareTo)),
+            })) as Analytics[];
+            const res: IOverview[] = getOverview(current, compare);
+
             resolve(res);
         });
     }
