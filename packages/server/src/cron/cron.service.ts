@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { UrlsService } from 'src/urls/urls.service';
 import axios from 'axios';
-import { UrlInput } from 'src/urls/inputs/url.input';
 import { AnalyticsService } from 'src/analytics/analytics.service';
 
 const instance = axios.create();
@@ -27,25 +26,36 @@ export class CronService {
     private readonly logger = new Logger(CronService.name);
     private urls = []; // in memory list of active urls
 
-    @Cron('35 * * * * *') // every minute 45 th second
+    @Cron('45 * * * * *') // every minute 45 th second
     async refetchActive() {
         this.logger.debug('>> refetching url');
         this.urls = await this.urlsService.findAll();
     }
 
-    @Cron('10 * * * * *') // testing with every second
+    @Cron('50 * * * * *') // testing with every second
     async handleCron() {
         this.urls.forEach(async i => {
-            const rr = await instance.get(i.url);
-
-            this.analyticsService.createDirect({
-                url: i.id,
-                rDuration: rr.headers['request-duration'],
-                method: i.method,
-                status: rr.status + '',
-                active: true,
-            });
-            this.logger.debug('URL?>', rr.status + ':' + rr.headers['request-duration']);
+            try {
+                const rr = await instance.get(i.url);
+                this.analyticsService.createDirect({
+                    url: i.id,
+                    rDuration: rr?.headers['request-duration'],
+                    method: i.method,
+                    status: rr.status + '',
+                    active: true,
+                });
+                this.logger.debug('URL?>', rr.status + ':' + rr.headers['request-duration']);
+            } catch (rr) {
+                this.analyticsService.createDirect({
+                    url: i.id,
+                    rDuration: 0,
+                    method: i.method,
+                    status: rr.code,
+                    active: true,
+                    message: rr.Error || '',
+                });
+                this.logger.error('URL?>', rr.Error,rr.code);
+            }
         });
     }
     async getUrl(url: string) {

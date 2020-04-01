@@ -16,6 +16,7 @@ type AnalyticsType {
   url: String!
   rDuration: Float
   method: String!
+  message: String
   status: String!
   createdAt: Timestamp!
 }

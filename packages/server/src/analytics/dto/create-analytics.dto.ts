@@ -10,6 +10,8 @@ export class AnalyticsType {
     readonly rDuration?: number;
     @Field()
     readonly method: string;
+    @Field({ nullable: true })
+    readonly message?: string;
     @Field()
     readonly status: string;
     @Field(() => GraphQLTimestamp)

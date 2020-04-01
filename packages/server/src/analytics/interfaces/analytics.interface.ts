@@ -8,4 +8,5 @@ export interface Analytics extends Document {
     readonly extras: object;
     readonly createdAt?: Date;
     readonly active?: boolean;
+    readonly message?: string;
 }
