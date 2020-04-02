@@ -29,6 +29,21 @@ $ npm install
 
 ## Running the app
 
+### Docker instance
+
+```bash
+# build docker image
+docker-compose build
+
+# build start instance
+docker-compose up
+```
+
+open browser and navigate to [http://localhost:3000/](http://localhost:3000/)
+open graphiQl and navigate to [http://localhost:3000/graphql](http://localhost:3000/graphql)
+
+### Dev server
+
 ```bash
 # development
 $ npm run start
@@ -39,6 +54,8 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+open browser and navigate to [http://localhost:9000/](http://localhost:9000/)
+open graphiQl and navigate to [http://localhost:9000/graphql](http://localhost:9000/graphql)
 
 ## Test
 
