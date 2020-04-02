@@ -45,14 +45,14 @@ open graphiQl and navigate to [http://localhost:3000/graphql](http://localhost:3
 ### Dev server
 
 ```bash
-# development
-$ npm run start
+# development server
+$ yarn start:server
 
-# watch mode
-$ npm run start:dev
+# run react dev server
+$ yarn start:client
 
-# production mode
-$ npm run start:prod
+# rebuild ui and start server
+$ npm run start:prodserver
 ```
 open browser and navigate to [http://localhost:9000/](http://localhost:9000/)
 open graphiQl and navigate to [http://localhost:9000/graphql](http://localhost:9000/graphql)
