@@ -5,3 +5,9 @@ export interface IUrl {
     readonly createdAt?: Date;
     readonly active?: boolean;
 }
+
+export interface IOverviewDTO {
+    type: string;
+    value: number;
+    prev: number;
+}

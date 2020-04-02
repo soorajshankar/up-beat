@@ -44,8 +44,13 @@ const List: ListI = ({ data = [], onClick }) => {
         <UL>
             {data &&
                 data instanceof Array &&
-                data.map((i, ix) => (
-                    <LI active={ix == active} onClick={() => setActive(ix)} tabIndex={ix}>
+                data.map((i, key) => (
+                    <LI
+                        active={key == active}
+                        onClick={() => setActive(key)}
+                        tabIndex={key}
+                        {...{ key }}
+                    >
                         <a>{i.url || ''}</a>
                     </LI>
                 ))}

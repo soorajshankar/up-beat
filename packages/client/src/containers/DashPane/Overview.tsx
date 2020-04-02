@@ -6,21 +6,71 @@ import { Row, Column } from '../../components/molecules/Grid';
 import { H3 } from '../../components/atoms/Heading';
 import Select from '../../components/atoms/Select';
 import { PlainCard } from '../../components/atoms/Card';
+import { GET_OVERVIEW } from '../../graphql/queries';
+import { IUrl, IOverviewDTO } from '../../typings';
+import { useQuery } from '@apollo/react-hooks';
 
 const OPTNS = OPTIONS.map(i => i.name);
+export interface IOverView {
+    url?: IUrl;
+}
+interface IOverViewObj {
+    [key: string]: IOverviewDTO;
+}
+const parseData = (data: IOverviewDTO[] = []) => {
+    const res: IOverViewObj = {};
+    data &&
+        data instanceof Array &&
+        data.forEach((i: IOverviewDTO) => {
+            res[i.type] = {
+                type: String(i.value) || '',
+                value: i.value || 0,
+                prev: i.prev || 0,
+            };
+        });
+    return res;
+};
 
-const OverView = ({}) => {
+const getType = (positive: boolean, invert: boolean) => {
+    const colors = ['green', 'red'];
+    console.warn(positive, invert);
+    if (positive) {
+        if (!invert) return colors[0];
+        else return colors[1];
+    } else {
+        if (!invert) return colors[1];
+        else return colors[0];
+    }
+};
+const getAnalProps = (metric: IOverviewDTO, invert: boolean = false) => {
+    const cur: number = Number.parseInt(metric.value + '');
+    const prev: number = Number.parseInt(metric.prev + '');
+    const percent = Math.floor(cur * (prev / 100));
+    const type = getType(percent > 100, invert);
+    return {
+        value: metric.value + 'ms',
+        percent: (percent > 100 ? '+' + (percent - 100) : '-' + percent) + '%',
+        type,
+    };
+};
+
+const OverView = (props: IOverView) => {
     const didMountRef = React.useRef(false);
+    const [type, setType] = React.useState('this week');
     React.useEffect(() => {
         if (!didMountRef.current) {
             didMountRef.current = true;
         }
     }, []);
-
-    console.log('>>');
+    const { loading, error, data } = useQuery(GET_OVERVIEW, {
+        variables: { url: props?.url?.id || '', type },
+    });
+    if (loading) return <>Loading..</>;
+    if (error) return <>Oops something went wrong..</>;
+    const { totalRTime, bestRTime, worstRTime } = parseData(data.getOverview);
     return (
         <>
-            <SubHead title="Overview" options={OPTNS} />
+            <SubHead title="Overview" options={OPTNS} type={type} onChange={setType} />
             <PlainCard>
                 <Row style={{ justifyContent: 'space-between' }}>
                     <AnalyticsCard
@@ -29,24 +79,17 @@ const OverView = ({}) => {
                         percent="+30%"
                         type="green"
                     />
-                    <AnalyticsCard
-                        title="Best response time"
-                        value="80ms"
-                        percent="-44%"
-                        type="red"
-                    />
+                    <AnalyticsCard title="Best response time" {...getAnalProps(bestRTime)} />
                     <AnalyticsCard
                         title="Worst response time"
-                        value="1000ms"
-                        percent="+30%"
-                        type="green"
+                        {...getAnalProps(worstRTime, true)}
                     />
                 </Row>
             </PlainCard>
         </>
     );
 };
-const AnalyticsCard = ({ title = '', value = '', percent = '', type = 'healthy' }) => {
+const AnalyticsCard = ({ title = '', value = '', percent = '', type = 'green' }) => {
     return (
         <Column
             style={{
@@ -55,7 +98,7 @@ const AnalyticsCard = ({ title = '', value = '', percent = '', type = 'healthy' 
         >
             <Title>{title}</Title>
             <Value>{value}</Value>
-            <Percent type="healthy">{percent}</Percent>
+            <Percent {...{ type }}>{percent}</Percent>
         </Column>
     );
 };
@@ -82,8 +125,8 @@ const Percent = styled.span<IPercent>`
     line-height: 33px;
     letter-spacing: 1px;
     color: ${props => {
-        if (props.type === 'healthy') return '#219653';
-        if (props.type === 'unhealthy') return '#EB5757';
+        if (props.type === 'green') return '#219653';
+        if (props.type === 'red') return '#EB5757';
         if (props.type === 'warn') return 'yellow';
         return 'grey';
     }};
@@ -91,18 +134,20 @@ const Percent = styled.span<IPercent>`
 
 interface ISubHead {
     title?: string;
+    type?: string;
     options?: string[];
+    onChange?: (v: string) => void;
 }
 
 const SubHead = (props: ISubHead) => {
-    const { title = '', options = [] } = props;
+    const { title = '', options = [], onChange = console.warn, type = 'this week' } = props;
     return (
         <Row style={{ alignItems: 'center', padding: '20px 10px' }}>
             <H3 style={{ margin: 0 }}>{title}</H3>
-            <Select onChange={e => console.log(OPTIONS[Number(e.target.value)])}>
+            <Select onChange={e => onChange(e.target.value)} value={type}>
                 {options &&
                     options instanceof Array &&
-                    options.map((i, ix) => <option value={ix}>{i}</option>)}
+                    options.map((i, ix) => <option {...{ value: i, key: ix }}>{i}</option>)}
             </Select>
         </Row>
     );

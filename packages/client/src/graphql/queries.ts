@@ -11,3 +11,13 @@ export const GET_ANALYTICS = gql`
         }
     }
 `;
+
+export const GET_OVERVIEW = gql`
+    query getAnalytics($url: String!, $type: String!) {
+        getOverview(url: $url, type: $type) {
+            type
+            value
+            prev
+        }
+    }
+`;

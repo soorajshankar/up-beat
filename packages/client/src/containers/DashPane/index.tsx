@@ -8,7 +8,7 @@ import ResponseTimeChart from './ResponseTImeChart';
 const DashPane = (props: IDashPaneProps) => {
     return (
         <Container>
-            <OverView />
+            <OverView {...props} />
             <ResponseTimeChart {...props} />
         </Container>
     );
