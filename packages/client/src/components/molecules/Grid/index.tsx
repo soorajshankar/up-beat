@@ -14,10 +14,16 @@ const Grid = styled.div<IGrid>`
     margin: 70px 35px;
 `;
 
-export const Row = styled.div`
+export const Row = styled.div<IRow>`
     display: flex;
-    flex-direction: row;
+    flex-flow: ${(props: IRow) => props.flow || ''};
+    flex-direction: ${(props: IRow) => (props.reverse ? 'row-reverse' : 'row')};
 `;
+export interface IRow {
+    flow?: string;
+    reverse?: boolean;
+}
+
 export const Column = styled.div`
     display: flex;
     flex-direction: column;

@@ -5,11 +5,14 @@ import OverView from './Overview';
 
 import { IUrl } from '../../typings';
 import ResponseTimeChart from './ResponseTImeChart';
+import { Row } from '../../components/molecules/Grid';
 const DashPane = (props: IDashPaneProps) => {
     return (
         <Container>
             <OverView {...props} />
-            <ResponseTimeChart {...props} />
+            <Row flow="wrap">
+                <ResponseTimeChart {...props} />
+            </Row>
         </Container>
     );
 };

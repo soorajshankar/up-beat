@@ -6,4 +6,5 @@ export const PlainCard = styled.div<IThemed>`
     box-shadow: 1px 1px 3px 1px #e0e0e0;
     margin: 20px 10px;
     border-radius: 5px;
+    width: -webkit-fill-available;
 `;

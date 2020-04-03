@@ -30,10 +30,6 @@ const TEST = {
         markers: {
             size: 0,
         },
-        title: {
-            text: 'Response Time',
-            align: 'left',
-        },
         fill: {
             type: 'gradient',
             gradient: {

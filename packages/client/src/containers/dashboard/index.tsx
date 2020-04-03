@@ -10,6 +10,7 @@ const DashboardDiv = styled.div`
     display: flex;
     height: 100%;
     background-color: ${(props: IThemed) => props.theme.bg};
+    font-family: 'Lato', sans-serif;
 `;
 const RightPane = styled.div<IThemed>`
     height: 100%;

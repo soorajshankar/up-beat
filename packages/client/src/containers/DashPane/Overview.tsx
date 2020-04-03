@@ -33,7 +33,6 @@ const parseData = (data: IOverviewDTO[] = []) => {
 
 const getType = (positive: boolean, invert: boolean) => {
     const colors = ['green', 'red'];
-    console.warn(positive, invert);
     if (positive) {
         if (!invert) return colors[0];
         else return colors[1];
@@ -42,13 +41,17 @@ const getType = (positive: boolean, invert: boolean) => {
         else return colors[0];
     }
 };
-const getAnalProps = (metric: IOverviewDTO, invert: boolean = false) => {
+const getAnltcProps = (
+    metric: IOverviewDTO,
+    invert: boolean = false,
+    suffix: string | null = 'ms',
+) => {
     const cur: number = Number.parseInt(metric.value + '');
     const prev: number = Number.parseInt(metric.prev + '');
     const percent = Math.floor(cur * (prev / 100));
     const type = getType(percent > 100, invert);
     return {
-        value: metric.value + 'ms',
+        value: metric.value + (suffix || ''),
         percent: (percent > 100 ? '+' + (percent - 100) : '-' + percent) + '%',
         type,
     };
@@ -67,22 +70,23 @@ const OverView = (props: IOverView) => {
     });
     if (loading) return <>Loading..</>;
     if (error) return <>Oops something went wrong..</>;
-    const { totalRTime, bestRTime, worstRTime } = parseData(data.getOverview);
+    const { totalRTime, bestRTime, worstRTime, count } = parseData(data.getOverview);
     return (
         <>
             <SubHead title="Overview" options={OPTNS} type={type} onChange={setType} />
             <PlainCard>
-                <Row style={{ justifyContent: 'space-between' }}>
+                <Row style={{ justifyContent: 'space-around', flexFlow: 'wrap' }}>
+                    <AnalyticsCard title="Total hits" {...getAnltcProps(count, false, null)} />
                     <AnalyticsCard
                         title="Average Response Time"
                         value="100ms"
                         percent="+30%"
                         type="green"
                     />
-                    <AnalyticsCard title="Best response time" {...getAnalProps(bestRTime)} />
+                    <AnalyticsCard title="Best response time" {...getAnltcProps(bestRTime)} />
                     <AnalyticsCard
                         title="Worst response time"
-                        {...getAnalProps(worstRTime, true)}
+                        {...getAnltcProps(worstRTime, true)}
                     />
                 </Row>
             </PlainCard>
@@ -91,27 +95,30 @@ const OverView = (props: IOverView) => {
 };
 const AnalyticsCard = ({ title = '', value = '', percent = '', type = 'green' }) => {
     return (
-        <Column
-            style={{
-                padding: '15px 28px',
-            }}
-        >
-            <Title>{title}</Title>
-            <Value>{value}</Value>
-            <Percent {...{ type }}>{percent}</Percent>
-        </Column>
+        <Row>
+            <Column
+                style={{
+                    padding: '15px 28px',
+                    textAlign: 'center',
+                }}
+            >
+                <Title>{title}</Title>
+                <Value>{value}</Value>
+                <Percent {...{ type }}>{percent}</Percent>
+            </Column>
+        </Row>
     );
 };
 const Title = styled.span`
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 13px;
     line-height: 33px;
 `;
 const Value = styled.span`
     margin: 10px 0px;
     font-style: normal;
-    font-weight: 800;
+    font-weight: 100;
     font-size: 40px;
     line-height: 40px;
 `;
@@ -120,7 +127,7 @@ interface IPercent {
 }
 const Percent = styled.span<IPercent>`
     font-style: normal;
-    font-weight: normal;
+    font-weight: 900;
     font-size: 18px;
     line-height: 33px;
     letter-spacing: 1px;
