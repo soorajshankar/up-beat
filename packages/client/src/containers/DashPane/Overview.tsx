@@ -147,6 +147,7 @@ interface ISubHead {
 }
 
 const SubHead = (props: ISubHead) => {
+    // tslint:disable-next-line: no-console
     const { title = '', options = [], onChange = console.warn, type = 'this week' } = props;
     return (
         <Row style={{ alignItems: 'center', padding: '20px 10px' }}>

@@ -9,7 +9,6 @@ import { Column, Row } from '../../components/molecules/Grid';
 import { H3 } from '../../components/atoms/Heading';
 import { DatePicker } from 'antd';
 
-import 'antd/dist/antd.css';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
 const { RangePicker } = DatePicker;
 

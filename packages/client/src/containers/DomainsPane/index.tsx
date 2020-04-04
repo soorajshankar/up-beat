@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { H3 } from '../../components/atoms/Heading';
 import List from '../../components/molecules/List';
@@ -7,6 +7,9 @@ import gql from 'graphql-tag';
 import { IThemed } from '../../contexts/Themes';
 import { SearchInput } from '../../components/atoms/Inputs';
 import { IUrl } from '../../typings';
+import Button from '../../components/atoms/Button';
+import { Row } from '../../components/molecules/Grid';
+import AddURL from './AddURL';
 
 const SecondPane = styled.div<IThemed>`
     max-height: 100vh;
@@ -18,15 +21,35 @@ const SecondPane = styled.div<IThemed>`
     box-shadow: 1px 1px 3px 1px #e0e0e0;
 `;
 const PaneHeder = styled.div`
+    display: flex;
+    flex-direction: column;
     padding: 30px;
 `;
 const DomainsPane = (props: IDomainsProp) => {
-    const { loading, error, data } = useQuery(GET_DOMAINS, {});
+    const [addUrl, setAddUrl] = useState(false);
+    const { loading, error, data, refetch } = useQuery(GET_DOMAINS, {});
+    const toggleAddUrl = useCallback(() => {
+        setAddUrl(url => !url);
+    }, [addUrl]);
+    const onModalClose = React.useCallback(() => {
+        setAddUrl(false);
+        refetch();
+    }, [setAddUrl, refetch]);
 
     return (
         <SecondPane>
             <PaneHeder>
-                <H3>Domains</H3>
+                <Row>
+                    <H3 style={{ flex: 1 }}>Domains</H3>
+                    <Button
+                        style={{
+                            alignSelf: 'baseline',
+                        }}
+                        onClick={toggleAddUrl}
+                    >
+                        +
+                    </Button>
+                </Row>
                 <SearchInput />
             </PaneHeder>
             {loading ? (
@@ -36,6 +59,7 @@ const DomainsPane = (props: IDomainsProp) => {
             ) : (
                 <List data={data.urls as IUrl[]} onClick={props.setUrl} />
             )}
+            {addUrl && <AddURL onClose={onModalClose} />}
         </SecondPane>
     );
 };
