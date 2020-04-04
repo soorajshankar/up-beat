@@ -31,8 +31,13 @@ const parseData = (data: IOverviewDTO[] = []) => {
     return res;
 };
 
-const getType = (positive: boolean, invert: boolean) => {
-    const colors = ['green', 'red'];
+const getType = (percent: number, invert: boolean) => {
+    const colors = ['green', 'red', 'blue', 'grey'];
+    if (percent === 100) return colors[2];
+    if (percent === 0) return colors[3];
+
+    const positive = percent > 100;
+
     if (positive) {
         if (!invert) return colors[0];
         else return colors[1];
@@ -40,6 +45,10 @@ const getType = (positive: boolean, invert: boolean) => {
         if (!invert) return colors[1];
         else return colors[0];
     }
+};
+const getPercentString = (percent: number) => {
+    if (percent == 0) return '0%';
+    return (percent > 100 ? '+' + (percent - 100) : '-' + percent) + '%';
 };
 const getAnltcProps = (
     metric: IOverviewDTO,
@@ -49,10 +58,10 @@ const getAnltcProps = (
     const cur: number = Number.parseInt(metric.value + '');
     const prev: number = Number.parseInt(metric.prev + '');
     const percent = Math.floor(cur * (prev / 100));
-    const type = getType(percent > 100, invert);
+    const type = getType(percent, invert);
     return {
         value: metric.value + (suffix || ''),
-        percent: (percent > 100 ? '+' + (percent - 100) : '-' + percent) + '%',
+        percent: getPercentString(percent),
         type,
     };
 };

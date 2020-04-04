@@ -19,10 +19,11 @@ interface IAddUrl {
     onClose?: () => void;
 }
 
-const urlRx = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+const urlRx = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
 const AddURL = (props: IAddUrl) => {
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState('http://');
+    const [valid, setValid] = useState(true);
     const [addUrl, { data, loading }] = useMutation(CREATE_URL);
     const onUrlChange = React.useCallback(
         e => {
@@ -31,7 +32,9 @@ const AddURL = (props: IAddUrl) => {
         [setUrl],
     );
     const onSubmit = React.useCallback(() => {
-        if (url && url.match(urlRx)) addUrl({ variables: { url } });
+        const valid = url && url.match(urlRx);
+        if (!valid) return setValid(false);
+        else addUrl({ variables: { url } });
     }, [url, addUrl]);
 
     React.useEffect(() => {
@@ -54,8 +57,16 @@ const AddURL = (props: IAddUrl) => {
             ]}
         >
             <Form labelCol={{ span: 6 }} wrapperCol={{ span: 14 }} layout="horizontal">
-                <Form.Item label="URL">
-                    <Input defaultValue="http://" value={url} onChange={onUrlChange} />
+                <Form.Item
+                    label="URL"
+                    {...{
+                        ...(!valid && {
+                            validateStatus: 'error',
+                            help: 'Please enter a valid http or htttps url',
+                        }),
+                    }}
+                >
+                    <Input value={url} onChange={onUrlChange} />
                 </Form.Item>
                 <Form.Item label="Select">
                     <Select defaultValue="GET">
