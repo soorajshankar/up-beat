@@ -14,33 +14,37 @@ import { UrlsModule } from './urls/urls.module';
 import { CronModule } from './cron/cron.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { SmtpModule } from './smtp/smtp.module';
+// import { AuthModule } from './auth/auth.module';
+// import { UsersModule } from './users/users.module';
 @Module({
-  imports: [
-    ConfigModule.forRoot({ load: [configuration] }),
-    GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.gql',
-    }),
-    MongooseModule.forRoot(`mongodb://${process.env.DATABASE_HOST}/nest`),
-    BullModule.registerQueue({
-      name: 'audio',
-      redis: {
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT, 10),
-      },
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      renderPath: '/',
-    }),
-    ScheduleModule.forRoot(),
+    imports: [
+        ConfigModule.forRoot({ load: [configuration] }),
+        GraphQLModule.forRoot({
+            autoSchemaFile: 'schema.gql',
+        }),
+        MongooseModule.forRoot(`mongodb://${process.env.DATABASE_HOST}/nest`),
+        BullModule.registerQueue({
+            name: 'audio',
+            redis: {
+                host: process.env.REDIS_HOST,
+                port: parseInt(process.env.REDIS_PORT, 10),
+            },
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', 'public'),
+            renderPath: '/',
+        }),
+        ScheduleModule.forRoot(),
 
-    CatsModule,
-    UrlsModule,
-    CronModule,
-    AnalyticsModule,
-    SmtpModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+        CatsModule,
+        UrlsModule,
+        CronModule,
+        AnalyticsModule,
+        SmtpModule,
+        // AuthModule,
+        // UsersModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}
