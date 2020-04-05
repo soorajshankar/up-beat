@@ -5,6 +5,7 @@ import { IThemed } from '../../contexts/Themes';
 import DomainsPane from '../DomainsPane';
 import DashPane from '../DashPane';
 import { IUrl } from '../../typings';
+import axios from 'axios';
 
 const DashboardDiv = styled.div`
     display: flex;
@@ -19,6 +20,9 @@ const RightPane = styled.div<IThemed>`
 `;
 export const Dashboard = () => {
     const [url, setUrl] = React.useState({} as IUrl);
+    React.useEffect(() => {
+        axios.post('auth/login', { username: 'john', password: 'changeme' });
+    }, []);
 
     return (
         <DashboardDiv>
