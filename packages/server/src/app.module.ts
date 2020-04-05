@@ -14,8 +14,8 @@ import { UrlsModule } from './urls/urls.module';
 import { CronModule } from './cron/cron.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { SmtpModule } from './smtp/smtp.module';
-// import { AuthModule } from './auth/auth.module';
-// import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 @Module({
     imports: [
         ConfigModule.forRoot({ load: [configuration] }),
@@ -41,8 +41,8 @@ import { SmtpModule } from './smtp/smtp.module';
         CronModule,
         AnalyticsModule,
         SmtpModule,
-        // AuthModule,
-        // UsersModule,
+        AuthModule,
+        UsersModule,
     ],
     controllers: [AppController],
     providers: [AppService],

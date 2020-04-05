@@ -14,7 +14,6 @@ export class UrlsResolver {
         return 'hello';
     }
 
-    @UseGuards(LocalAuthGuard)
     @Query(() => [UrlType])
     async urls() {
         return this.urlsService.findAll();
