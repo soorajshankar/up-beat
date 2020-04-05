@@ -3,7 +3,8 @@ import { Cron } from '@nestjs/schedule';
 import { UrlsService } from 'src/urls/urls.service';
 import axios from 'axios';
 import { AnalyticsService } from 'src/analytics/analytics.service';
-
+import { createTransport } from 'nodemailer';
+import { SmtpService } from 'src/smtp/smtp.service';
 const instance = axios.create();
 instance.interceptors.request.use(config => {
     config.headers['request-startTime'] = process.hrtime();
@@ -22,14 +23,20 @@ export class CronService {
     constructor(
         private readonly urlsService: UrlsService,
         private readonly analyticsService: AnalyticsService,
+        private readonly smtpService: SmtpService,
     ) {}
     private readonly logger = new Logger(CronService.name);
     private urls = []; // in memory list of active urls
 
-    @Cron('45 * * * * *') // every minute 45 th second
+    @Cron('35 * * * * *') // every minute 45 th second
     async refetchActive() {
         this.logger.debug('>> refetching url');
         this.urls = await this.urlsService.findAll();
+    }
+
+    async notify() {
+        const resp = await this.smtpService.sendMail({ to: 'test@mail.com' });
+        this.logger.debug(JSON.stringify(resp));
     }
 
     @Cron('50 * * * * *') // testing with every second
@@ -54,7 +61,7 @@ export class CronService {
                     active: true,
                     message: rr.Error || '',
                 });
-                this.logger.error('URL?>', rr.Error,rr.code);
+                this.logger.error('URL?>', rr.Error, rr.code);
             }
         });
     }
