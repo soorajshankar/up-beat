@@ -17,6 +17,7 @@
         "build:server": "lerna run build --scope @up-beat/server --stream",
         "start:server": "lerna run start:dev --scope @up-beat/server --stream",
         "start": "lerna run start:dev --scope @up-beat/server --stream",
+        "start:ci": "lerna run start --scope @up-beat/server --stream",
         "start:prodserver": "yarn build:client && yarn clean:ui && yarn copy:ui && yarn start:server",
         "bootstrap": "lerna bootstrap --force-local --ci -- --production=false"
     },
