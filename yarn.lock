@@ -2266,10 +2266,10 @@
     "@types/jsonwebtoken" "8.3.8"
     jsonwebtoken "8.5.1"
 
-"@nestjs/mongoose@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/mongoose/-/mongoose-6.0.0.tgz#886fad19db41c79ea425e4de32730977c3892aff"
-  integrity sha512-2iag6pGVAQ5ww92KRsVZmtpkcQ1LgaKyLs3LlUFDRXNfXqTvcHdpK0H4nVR19X9IMm0N57+MbQosvTFJDkbK+A==
+"@nestjs/mongoose@6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/mongoose/-/mongoose-6.4.0.tgz#3ea2773528f8c4948b76377d24008f5b663b4e14"
+  integrity sha512-Q+W1ydZEYG24AnYYbgtNBXE2iIMwfiCUSMilt8swFE8Gl1dAum10NCPLbMgFc31JRKDJFmvxUBftTD0JiGYlmQ==
 
 "@nestjs/passport@^7.0.0":
   version "7.0.0"
