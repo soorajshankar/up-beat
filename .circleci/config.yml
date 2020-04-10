@@ -10,7 +10,7 @@ jobs:
       - node/with-cache:
           steps:
             - run: yarn install
-            - run: yarn run start:prodserver
+            - run: yarn run start:server
 workflows:
     build-and-test:
       jobs:
