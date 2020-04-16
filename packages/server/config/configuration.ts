@@ -9,6 +9,8 @@ export default () => ({
 export const getMongoConnStr = () => {
     if (process.env.DATABASE_STRING) {
         return process.env.DATABASE_STRING;
+    } else if (process.env.MONGODB_URI) {
+        return process.env.MONGODB_URI;
     } else if (
         process.env.DATABASE_HOST &&
         process.env.DATABASE_DBNAME &&

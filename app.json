@@ -1,0 +1,14 @@
+{
+    "name": "UpBeat",
+    "description": "self hosted server uptime monitor",
+    "keywords": ["MERN", "NestJS", "Node", "MongoDB", "GraphQL"],
+    "repository": "https://github.com/soorajshankar/up-beat",
+    "success_url": "/",
+    "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "free"
+        }
+    },
+    "addons": ["mongolab"]
+}
