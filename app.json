@@ -10,5 +10,16 @@
             "size": "free"
         }
     },
-    "addons": ["mongolab"]
+    "addons": [
+        {
+            "plan": "mongolab:shared-single-small",
+            "as": "MONGO"
+        }
+    ],
+    "env": {
+        "SECRET_TOKEN": {
+            "description": "A secret key for verifying the integrity of signed cookies.",
+            "generator": "secret"
+        }
+    }
 }
