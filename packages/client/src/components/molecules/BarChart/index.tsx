@@ -62,7 +62,7 @@ const parseData = (data: any[]) => {
         });
     return [
         {
-            name: 'google.com',
+            name: 'Response Time',
             data: dates,
         },
     ];
