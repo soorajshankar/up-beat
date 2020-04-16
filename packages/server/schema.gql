@@ -21,28 +21,31 @@ type AnalyticsType {
   createdAt: Timestamp!
 }
 
-input CatInput {
-  name: String!
-  age: Int!
-  breed: String!
-}
-
-type CatType {
-  id: ID!
-  name: String!
-  age: Int!
-  breed: String!
-}
-
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
 scalar DateTime
 
 type Mutation {
-  createCat(input: CatInput!): CatType!
+  createNotifier(input: NotifierInput!): NotifierType!
   createUrl(input: UrlInput!): UrlType!
   createAnalytics(input: AnalyticsInput!): AnalyticsType!
+}
+
+input NotifierInput {
+  id: ID!
+  type: String!
+  schedule: String!
+  active: Boolean!
+  config: String!
+}
+
+type NotifierType {
+  id: ID!
+  type: String!
+  schedule: String!
+  active: Boolean!
+  config: String!
 }
 
 type OverviewDTO {
@@ -53,7 +56,7 @@ type OverviewDTO {
 
 type Query {
   hello: String!
-  cats: [CatType!]!
+  notifiers: [NotifierType!]!
   urls: [UrlType!]!
   analytics: [AnalyticsType!]!
   test: TestDTO!

@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CatsModule } from './cats/cats.module';
+import { NotifierModule } from './notifier/notifier.module';
 import { join } from 'path';
 import configuration, { getMongoConnStr } from 'config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -36,7 +36,7 @@ import { UsersModule } from './users/users.module';
         }),
         ScheduleModule.forRoot(),
 
-        CatsModule,
+        NotifierModule,
         UrlsModule,
         CronModule,
         AnalyticsModule,
