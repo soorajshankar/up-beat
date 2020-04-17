@@ -9,6 +9,7 @@
         "copy:ui": "cp -R  ./client/build/ ./public",
         "format": "prettier --write \"src/**/*.ts\"",
         "start": "ts-node -r tsconfig-paths/register src/main.ts",
+        "start:ci": "ts-node -r tsconfig-paths/register src/main.ts",
         "start:dev": "yarn nodemon",
         "start:debug": "nodemon --config nodemon-debug.json",
         "prestart:prod": "rimraf dist && npm run build",
