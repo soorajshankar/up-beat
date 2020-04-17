@@ -22,7 +22,7 @@ import { UsersModule } from './users/users.module';
         GraphQLModule.forRoot({
             autoSchemaFile: 'schema.gql',
         }),
-        MongooseModule.forRoot(getMongoConnStr()),
+        MongooseModule.forRoot(getMongoConnStr(), { useNewUrlParser: true }),
         BullModule.registerQueue({
             name: 'audio',
             redis: {

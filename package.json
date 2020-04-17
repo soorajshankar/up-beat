@@ -10,7 +10,7 @@
     "scripts": {
         "dev": "lerna run dev --scope @up-beat/client --stream",
         "start:client": "cd packages/client && yarn start",
-        "build": "lerna run build:ci --scope @up-beat/server --stream",
+        "build": "lerna run build --scope @up-beat/server --stream",
         "start:clientLerna": "lerna run start --scope @up-beat/client --stream",
         "build:client": "lerna run build --scope @up-beat/client --stream",
         "clean:ui": "rm -rf ./packages/server/public",
