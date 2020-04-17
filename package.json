@@ -17,8 +17,8 @@
         "build:server": "lerna run build --scope @up-beat/server --stream",
         "start:server": "lerna run start:dev --scope @up-beat/server --stream",
         "start": "yarn start:prodserver",
-        "start:ci": "lerna run start --scope @up-beat/server --stream",
-        "start:prodserver": "yarn build:client && yarn clean:ui && yarn copy:ui && yarn start:ci",
+        "start:ci": "lerna run start:ci --scope @up-beat/server --stream",
+        "start:prodserver": "yarn start:ci",
         "bootstrap": "lerna bootstrap --force-local --ci -- --production=false"
     },
     "devDependencies": {
