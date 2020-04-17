@@ -23,7 +23,8 @@
         "start:tsserver": "lerna run start --scope @up-beat/server --stream",
         "start:ci": "lerna run start:ci --scope @up-beat/server --stream",
         "start:prodserver": "yarn start:ci",
-        "bootstrap": "lerna bootstrap --force-local --ci -- --production=false"
+        "bootstrap": "lerna bootstrap --force-local --ci -- --production=false",
+        "postinstall": "yarn build"
     },
     "devDependencies": {
         "lerna": "^3.20.2"
