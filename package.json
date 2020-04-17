@@ -17,7 +17,7 @@
         "copy:ui": "cp -R  ./packages/client/build/ ./packages/server/public",
         "build:server": "lerna run build --scope @up-beat/server --stream",
         "start:server": "lerna run start:dev --scope @up-beat/server --stream",
-        "start": "yarn start:tsserver",
+        "start": "yarn start:ci",
         "start:dev": "yarn start:tsserver",
         "start:devserver": "lerna run start:dev --scope @up-beat/server --stream",
         "start:tsserver": "lerna run start --scope @up-beat/server --stream",
