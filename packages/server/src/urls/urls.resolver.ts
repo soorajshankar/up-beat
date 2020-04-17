@@ -3,7 +3,7 @@ import { UrlsService } from './urls.service';
 import { UrlType } from './dto/create-url.dto';
 import { UrlInput } from './inputs/url.input';
 import { UseGuards } from '@nestjs/common';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { LocalAuthGuard } from '../auth/local-auth.guard';
 
 @Resolver('Urls')
 export class UrlsResolver {

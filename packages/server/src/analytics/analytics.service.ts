@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { AnalyticsInput } from './inputs/analytics.input';
 import { Test } from './interfaces/test.interface';
 import { IOverview } from './interfaces/overview.interface';
-import { genTimedQuery, getDateRange, getOverview } from 'src/utils/utils';
+import { genTimedQuery, getDateRange, getOverview } from '../utils/utils';
 
 @Injectable()
 export class AnalyticsService {

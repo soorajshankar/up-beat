@@ -1,8 +1,8 @@
 import { Module, HttpModule } from '@nestjs/common';
 import { CronService } from './cron.service';
-import { UrlsModule } from 'src/urls/urls.module';
-import { AnalyticsModule } from 'src/analytics/analytics.module';
-import { SmtpModule } from 'src/smtp/smtp.module';
+import { UrlsModule } from '../urls/urls.module';
+import { AnalyticsModule } from '../analytics/analytics.module';
+import { SmtpModule } from '../smtp/smtp.module';
 
 @Module({
     providers: [CronService],
