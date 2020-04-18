@@ -8,7 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NotifierModule } from './notifier/notifier.module';
 import { join } from 'path';
-import configuration, { getMongoConnStr } from 'config/configuration';
+import configuration, { getMongoConnStr } from '../config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UrlsModule } from './urls/urls.module';
 import { CronModule } from './cron/cron.module';
@@ -21,8 +21,12 @@ import { UsersModule } from './users/users.module';
         ConfigModule.forRoot({ load: [configuration] }),
         GraphQLModule.forRoot({
             autoSchemaFile: 'schema.gql',
+            // introspection: true,
+            engine: {
+                apiKey: process.env.ENGINE_API_KEY,
+            },
         }),
-        MongooseModule.forRoot(getMongoConnStr()),
+        MongooseModule.forRoot(getMongoConnStr(), { useNewUrlParser: true }),
         BullModule.registerQueue({
             name: 'audio',
             redis: {

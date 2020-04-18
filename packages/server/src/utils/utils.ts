@@ -1,6 +1,6 @@
 import * as moment from 'moment';
-import { Analytics } from 'src/analytics/interfaces/analytics.interface';
-import { IOverview } from 'src/analytics/interfaces/overview.interface';
+import { Analytics } from '../analytics/interfaces/analytics.interface';
+import { IOverview } from '../analytics/interfaces/overview.interface';
 
 export const getDateRange = (type: string) => {
     // if (type.toLowerCase() === 'this week') {

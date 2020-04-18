@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { UrlsService } from 'src/urls/urls.service';
+import { UrlsService } from '../urls/urls.service';
 import axios from 'axios';
-import { AnalyticsService } from 'src/analytics/analytics.service';
+import { AnalyticsService } from '../analytics/analytics.service';
 import { createTransport } from 'nodemailer';
-import { SmtpService } from 'src/smtp/smtp.service';
+import { SmtpService } from '../smtp/smtp.service';
 const instance = axios.create();
 instance.interceptors.request.use(config => {
     config.headers['request-startTime'] = process.hrtime();
@@ -46,7 +46,7 @@ export class CronService {
                 const rr = await instance.get(i.url);
                 this.analyticsService.createDirect({
                     url: i.id,
-                    rDuration: rr?.headers['request-duration'],
+                    rDuration: rr.headers['request-duration'],
                     method: i.method,
                     status: rr.status + '',
                     active: true,
