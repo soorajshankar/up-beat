@@ -6,7 +6,10 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
 const client = new ApolloClient({
-    uri: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/graphql' : '/graphql',
+    uri:
+        process.env.NODE_ENV === 'development'
+            ? `http://localhost:${process.env.PORT || 3000}/graphql`
+            : '/graphql',
 });
 function App() {
     const [theme, setTheme] = React.useState(Themes.default);
