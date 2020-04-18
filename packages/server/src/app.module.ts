@@ -21,7 +21,10 @@ import { UsersModule } from './users/users.module';
         ConfigModule.forRoot({ load: [configuration] }),
         GraphQLModule.forRoot({
             autoSchemaFile: 'schema.gql',
-            introspection: true,
+            // introspection: true,
+            engine: {
+                apiKey: process.env.ENGINE_API_KEY,
+            },
         }),
         MongooseModule.forRoot(getMongoConnStr(), { useNewUrlParser: true }),
         BullModule.registerQueue({
