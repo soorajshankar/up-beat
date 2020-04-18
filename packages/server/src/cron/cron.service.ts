@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit, Inject, forwardRef } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { UrlsService } from '../urls/urls.service';
 import axios from 'axios';
@@ -19,8 +19,11 @@ instance.interceptors.response.use(response => {
     return response;
 });
 @Injectable()
-export class CronService {
+export class CronService implements OnModuleInit {
     constructor(
+        @Inject(forwardRef(() => UrlsService))
+        @Inject(forwardRef(() => AnalyticsService))
+        @Inject(forwardRef(() => SmtpService))
         private readonly urlsService: UrlsService,
         private readonly analyticsService: AnalyticsService,
         private readonly smtpService: SmtpService,
@@ -28,10 +31,14 @@ export class CronService {
     private readonly logger = new Logger(CronService.name);
     private urls = []; // in memory list of active urls
 
-    @Cron('35 * * * * *') // every minute 45 th second
     async refetchActive() {
         this.logger.debug('>> refetching url');
         this.urls = await this.urlsService.findAll();
+    }
+
+    onModuleInit() {
+        this.logger.debug(`The module has been initialized.`);
+        this.refetchActive();
     }
 
     async notify() {
