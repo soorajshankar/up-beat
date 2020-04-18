@@ -4,6 +4,10 @@
   <h4>This project is under development</h4>
 </div>
 
+## Quick Deployment
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/soorajshankar/up-beat)
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) server monitoring system
@@ -54,6 +58,7 @@ $ yarn start:client
 # rebuild ui and start server
 $ npm run start:prodserver
 ```
+
 open browser and navigate to [http://localhost:9000/](http://localhost:9000/)
 open graphiQl and navigate to [http://localhost:9000/graphql](http://localhost:9000/graphql)
 
