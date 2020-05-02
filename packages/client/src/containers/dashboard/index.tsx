@@ -21,7 +21,7 @@ const RightPane = styled.div<IThemed>`
 export const Dashboard = () => {
     const [url, setUrl] = React.useState({} as IUrl);
     React.useEffect(() => {
-        axios.post('auth/login', { username: 'john', password: 'changeme' });
+        // axios.post('auth/login', { username: 'john', password: 'changeme' });
     }, []);
 
     return (

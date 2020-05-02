@@ -22,7 +22,7 @@ export class SmtpService {
 
             return transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
-                    reject({ status: 'FAILED', resp: info.response });
+                    reject({ status: 'FAILED', resp: error });
                 } else {
                     resolve({ status: 'SENT', resp: info.response });
                 }

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AnalyticsService } from '../analytics/analytics.service';
 import { createTransport } from 'nodemailer';
 import { SmtpService } from '../smtp/smtp.service';
+import { NotifierService } from '../notifier/notifier.service';
 const instance = axios.create();
 instance.interceptors.request.use(config => {
     config.headers['request-startTime'] = process.hrtime();
@@ -24,9 +25,11 @@ export class CronService implements OnModuleInit {
         @Inject(forwardRef(() => UrlsService))
         @Inject(forwardRef(() => AnalyticsService))
         @Inject(forwardRef(() => SmtpService))
+        @Inject(forwardRef(() => NotifierService))
         private readonly urlsService: UrlsService,
         private readonly analyticsService: AnalyticsService,
         private readonly smtpService: SmtpService,
+        private readonly notifierService: NotifierService,
     ) {}
     private readonly logger = new Logger(CronService.name);
     private urls = []; // in memory list of active urls
@@ -69,6 +72,7 @@ export class CronService implements OnModuleInit {
                     message: rr.Error || '',
                 });
                 this.logger.error('URL?>', rr.Error, rr.code);
+                this.notifierService.notify();
             }
         });
     }
