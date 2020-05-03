@@ -10,6 +10,7 @@ import { IUrl } from '../../typings';
 import Button from '../../components/atoms/Button';
 import { Row } from '../../components/molecules/Grid';
 import AddURL from './AddURL';
+import { CSSTransition } from 'react-transition-group';
 
 const SecondPane = styled.div<IThemed>`
     max-height: 100vh;
@@ -52,17 +53,23 @@ const DomainsPane = (props: IDomainsProp) => {
                 </Row>
                 <SearchInput />
             </PaneHeder>
-            {loading ? (
-                <p>Loading</p>
-            ) : error ? (
-                <p>Failed to load the data...</p>
-            ) : (
-                <List data={data.urls as IUrl[]} onClick={props.setUrl} />
-            )}
+            {loading && <p>Loading</p>}
+            {error && <p>Failed to load the data...</p>}
+            <CSSTransition
+                in={data}
+                timeout={3000}
+                classNames="dlist"
+                unmountOnExit
+                // onEnter={() => setShowButton(false)}
+                // onExited={() => setShowButton(true)}
+            >
+                <DList data={data?.urls || ([] as IUrl[])} onClick={props.setUrl} />
+            </CSSTransition>
             {addUrl && <AddURL onClose={onModalClose} />}
         </SecondPane>
     );
 };
+const DList = React.memo(List);
 
 const GET_DOMAINS = gql`
     query {

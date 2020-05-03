@@ -72,7 +72,14 @@ export class CronService implements OnModuleInit {
                     message: rr.Error || '',
                 });
                 this.logger.error('URL?>', rr.Error, rr.code);
-                this.notifierService.notify();
+                this.notifierService.notify({
+                    url: i.id,
+                    rDuration: 0,
+                    method: i.method,
+                    status: rr.code,
+                    active: true,
+                    message: rr.Error || '',
+                });
             }
         });
     }

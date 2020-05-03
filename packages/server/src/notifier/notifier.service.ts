@@ -22,9 +22,13 @@ export class NotifierService {
     async findAll(): Promise<Notifier[]> {
         return await this.notifierModel.find().exec();
     }
-    async notify() {
-        this.logger.debug('>>>');
-        const resp = await this.smtpService.sendMail({ to: 'test@mail.com' });
-        this.logger.debug('Done');
+    async notify(config) {
+        this.logger.debug('Notifying', config);
+        try {
+            const resp = await this.smtpService.sendMail({ to: 'soorajshankar@gmail.com' });
+            this.logger.debug('Done');
+        } catch (err) {
+            this.logger.error({ err });
+        }
     }
 }

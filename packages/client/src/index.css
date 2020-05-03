@@ -20,3 +20,18 @@ code {
 a {
   color: inherit;
 }
+
+.dlist-enter {
+  opacity: 0;
+}
+.dlist-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.dlist-exit {
+  opacity: 1;
+}
+.dlist-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}

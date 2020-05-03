@@ -6,7 +6,8 @@ import DomainsPane from '../DomainsPane';
 import DashPane from '../DashPane';
 import { IUrl } from '../../typings';
 import axios from 'axios';
-
+import { Switch, Route, Link } from 'react-router-dom';
+import Notifcations from '../Notifications';
 const DashboardDiv = styled.div`
     display: flex;
     height: 100%;
@@ -28,9 +29,17 @@ export const Dashboard = () => {
         <DashboardDiv>
             <Sidebar />
             <RightPane>
-                <DomainsPane {...{ setUrl }} />
-                <DashPane {...{ url }} />
+                <Switch>
+                    <Route path="/notifications">
+                        <Notifcations />
+                    </Route>
+                    <Route path="/">
+                        <DomainsPane {...{ setUrl }} />
+                        <DashPane {...{ url }} />
+                    </Route>
+                </Switch>
             </RightPane>
         </DashboardDiv>
     );
 };
+
