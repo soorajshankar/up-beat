@@ -33,7 +33,7 @@
         "@nestjs/platform-express": "7.0.0",
         "@nestjs/schedule": "0.3.0",
         "@nestjs/serve-static": "2.1.0",
-        "apollo-server-express": "^2.4.8",
+        "apollo-server-express": "^2.14.2",
         "bull": "^3.13.0",
         "graphql": "^14.2.1",
         "graphql-tools": "^4.0.4",
