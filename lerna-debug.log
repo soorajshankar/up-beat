@@ -1,0 +1,18 @@
+0 silly argv {
+0 silly argv   _: [ 'clean' ],
+0 silly argv   lernaVersion: '3.20.2',
+0 silly argv   '$0': 'node_modules/.bin/lerna'
+0 silly argv }
+1 notice cli v3.20.2
+2 verbose rootPath /Users/sooraj/Projects/up-beat
+3 info versioning independent
+4 info Removing the following directories:
+5 info clean packages/client/node_modules
+5 info clean packages/server/node_modules
+6 info clean removing /Users/sooraj/Projects/up-beat/packages/client/node_modules
+7 silly rimrafDir /Users/sooraj/Projects/up-beat/packages/client/node_modules
+8 info clean removing /Users/sooraj/Projects/up-beat/packages/server/node_modules
+9 silly rimrafDir /Users/sooraj/Projects/up-beat/packages/server/node_modules
+10 error Error: Command failed: /usr/local/bin/node /Users/sooraj/Projects/up-beat/node_modules/rimraf/bin.js --no-glob /Users/sooraj/Projects/up-beat/packages/server/node_modules/
+10 error     at makeError (/Users/sooraj/Projects/up-beat/node_modules/execa/index.js:174:9)
+10 error     at /Users/sooraj/Projects/up-beat/node_modules/execa/index.js:278:16

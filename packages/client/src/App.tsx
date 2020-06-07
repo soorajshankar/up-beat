@@ -12,7 +12,7 @@ const client = new ApolloClient({
             : '/graphql',
 });
 function App() {
-    const [theme, setTheme] = React.useState(Themes.default);
+    const [theme] = React.useState(Themes.default);
     return (
         <ApolloProvider client={client}>
             <ThemeProvider theme={theme}>

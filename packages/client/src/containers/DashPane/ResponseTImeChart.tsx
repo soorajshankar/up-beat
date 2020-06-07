@@ -39,6 +39,7 @@ const ResponseTimeChart = (props: IDashPaneProps) => {
             <PlainCard
                 style={{
                     padding: '15px 28px',
+                    width: '100%',
                 }}
             >
                 <BarChart {...{ data: data?.getAnalytics || [] }} />

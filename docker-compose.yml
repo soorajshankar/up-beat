@@ -1,25 +1,26 @@
 version: '3'
 services:
-  up-beat:
-    depends_on:
-      - db
-    restart: always
-    build: .
-    ports:
-      - '3000:3000'
-    environment:
-      - DATABASE_HOST=db_mongo
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+    core:
+        depends_on:
+            - db
+        restart: always
+        container_name: core
+        build: .
+        ports:
+            - '3000:3000'
+        environment:
+            - DATABASE_HOST=db_mongo
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
 
-  db:
-    image: mongo
-    container_name: db_mongo
-    volumes:
-      - mongodata:/data/db
-    ports:
-      - '27017:27017'
+    db:
+        image: mongo
+        container_name: db_mongo
+        volumes:
+            - mongodata:/data/db
+        ports:
+            - '27017:27017'
 
 volumes:
-  mongodata:
+    mongodata:
