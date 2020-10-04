@@ -5,11 +5,10 @@ import { useQuery } from '@apollo/react-hooks';
 import moment, { Moment } from 'moment';
 import { GET_ANALYTICS } from '../../graphql/queries';
 import { PlainCard } from '../../components/atoms/Card';
-import { Column, Row } from '../../components/molecules/Grid';
+import { Row } from '../../components/molecules/Grid';
 import { H3 } from '../../components/atoms/Heading';
 import { DatePicker } from 'antd';
 
-import { RangePickerValue } from 'antd/lib/date-picker/interface';
 const { RangePicker } = DatePicker;
 
 type IRange = [Moment, Moment];
@@ -40,6 +39,7 @@ const ResponseTimeChart = (props: IDashPaneProps) => {
             <PlainCard
                 style={{
                     padding: '15px 28px',
+                    width: '100%',
                 }}
             >
                 <BarChart {...{ data: data?.getAnalytics || [] }} />

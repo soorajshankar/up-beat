@@ -6,7 +6,8 @@ import DomainsPane from '../DomainsPane';
 import DashPane from '../DashPane';
 import { IUrl } from '../../typings';
 import axios from 'axios';
-
+import { Switch, Route, Link } from 'react-router-dom';
+import Notifcations from '../Notifications';
 const DashboardDiv = styled.div`
     display: flex;
     height: 100%;
@@ -21,16 +22,24 @@ const RightPane = styled.div<IThemed>`
 export const Dashboard = () => {
     const [url, setUrl] = React.useState({} as IUrl);
     React.useEffect(() => {
-        axios.post('auth/login', { username: 'john', password: 'changeme' });
+        // axios.post('auth/login', { username: 'john', password: 'changeme' });
     }, []);
 
     return (
         <DashboardDiv>
             <Sidebar />
             <RightPane>
-                <DomainsPane {...{ setUrl }} />
-                <DashPane {...{ url }} />
+                <Switch>
+                    <Route path="/notifications">
+                        <Notifcations />
+                    </Route>
+                    <Route path="/">
+                        <DomainsPane {...{ setUrl }} />
+                        <DashPane {...{ url }} />
+                    </Route>
+                </Switch>
             </RightPane>
         </DashboardDiv>
     );
 };
+

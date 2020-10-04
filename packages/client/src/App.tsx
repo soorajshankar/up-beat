@@ -4,7 +4,7 @@ import Themes from './contexts/Themes';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-
+import { BrowserRouter as Router } from 'react-router-dom';
 const client = new ApolloClient({
     uri:
         process.env.NODE_ENV === 'development'
@@ -12,11 +12,13 @@ const client = new ApolloClient({
             : '/graphql',
 });
 function App() {
-    const [theme, setTheme] = React.useState(Themes.default);
+    const [theme] = React.useState(Themes.default);
     return (
         <ApolloProvider client={client}>
             <ThemeProvider theme={theme}>
-                <Dashboard />
+                <Router>
+                    <Dashboard />
+                </Router>
             </ThemeProvider>
         </ApolloProvider>
     );

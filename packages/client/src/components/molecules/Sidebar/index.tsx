@@ -2,7 +2,10 @@ import React from 'react';
 import { MenuIcon } from '../../icons';
 import styled from 'styled-components';
 import { HomeIcon } from '../../icons/Home';
+import { NotificationIcon } from '../../icons/Notification';
 import { IThemed } from '../../../contexts/Themes';
+import { useLocation, Link } from 'react-router-dom';
+
 interface ISidebarProps {
     open?: boolean;
 }
@@ -58,6 +61,7 @@ const SideBarItem = styled.div`
 
 export const Sidebar = () => {
     const [sbOpen, setSbOpen] = React.useState(true);
+    let location = useLocation();
     return (
         <>
             <SidebarHandle onClick={() => setSbOpen(v => !v)}>
@@ -66,15 +70,27 @@ export const Sidebar = () => {
             <SidebarDiv open={sbOpen}>
                 <Sidehead></Sidehead>
                 <SideCenter>
-                    <SideBarItem active>
-                        <HomeIcon />
-                    </SideBarItem>
-                    <SideBarItem>
-                        <HomeIcon />
-                    </SideBarItem>
+                    {ROUTES.map(({ to, Icon }) => (
+                        <Link {...{ to }}>
+                            <SideBarItem active={to === location.pathname}>
+                                <Icon />
+                            </SideBarItem>
+                        </Link>
+                    ))}
                 </SideCenter>
                 <SideFooter></SideFooter>
             </SidebarDiv>
         </>
     );
 };
+
+const ROUTES = [
+    {
+        to: '/',
+        Icon: HomeIcon,
+    },
+    {
+        to: '/notifications',
+        Icon: NotificationIcon,
+    },
+];
