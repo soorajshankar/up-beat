@@ -1,0 +1,32 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/."
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@nestjs/common"
+    versions:
+    - 7.6.13
+    - 7.6.5
+  - dependency-name: rxjs
+    versions:
+    - 6.6.3
+    - 6.6.6
+  - dependency-name: "@nestjs/schedule"
+    versions:
+    - 0.4.1
+    - 0.4.2
+  - dependency-name: apollo-server-core
+    versions:
+    - 2.19.2
+  - dependency-name: supertest
+    versions:
+    - 6.0.1
+  - dependency-name: "@types/bull"
+    versions:
+    - 3.14.4
+  - dependency-name: nodemon
+    versions:
+    - 2.0.6
